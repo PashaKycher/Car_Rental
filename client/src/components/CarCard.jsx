@@ -1,11 +1,14 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
 
 const CarCard = ({ car }) => {
     const currecy = import.meta.env.VITE_CURRENCY
+    const navigate = useNavigate()
 
     return (
-        <div className=' overflow-hidden shadow-lg hover:-translate-y-1
+        <div onClick={() => {navigate(`/car-ditails/${car._id}`); scrollTo(0, 0)}}
+        className=' overflow-hidden shadow-lg hover:-translate-y-1
         transition-all duration-500 cursor-pointer group rounded-xl'>
             {/* car image and text on image */}
             <div className='relative h-48 overflow-hidden'>
@@ -41,11 +44,11 @@ const CarCard = ({ car }) => {
                     </div>
                     <div className='flex items-center text-sm txt-muted-foreground'>
                         <img src={assets.car_icon} alt="user" className='h-4 w-4 mr-2' />
-                        <span>{car.transmission} seats</span>
+                        <span>{car.transmission}</span>
                     </div>
                     <div className='flex items-center text-sm txt-muted-foreground'>
                         <img src={assets.location_icon} alt="user" className='h-4 w-4 mr-2' />
-                        <span>{car.location} seats</span>
+                        <span>{car.location}</span>
                     </div>
                 </div>
             </div>
