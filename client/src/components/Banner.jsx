@@ -1,10 +1,10 @@
 import React from 'react'
-import { assets } from '../assets/assets'
+import { assets, dummyUserData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 
 const Banner = ({ setShowLogin }) => {
     const navigate = useNavigate()
-    const user = null
+    const user = dummyUserData
 
     const handleClick = () => {
         if (user) {

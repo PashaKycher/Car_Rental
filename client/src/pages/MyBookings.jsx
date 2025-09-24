@@ -28,7 +28,7 @@ const MyBookings = () => {
                 <img src={booking.car.image} alt="" className='w-full h-auto aspect-video object-cover' />
               </div>
 
-              <p className='text-lg font-medium mt-2'>{booking.car.brend} {booking.car.model}</p>
+              <p className='text-lg font-medium mt-2'>{booking.car.brand} {booking.car.model}</p>
 
               <p className='text-gray-500'>{booking.car.category} • {booking.car.year} • {booking.car.location}</p>
             </div>
