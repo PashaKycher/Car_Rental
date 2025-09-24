@@ -19,7 +19,7 @@ const ManageCars = () => {
         {/* title */}
         <Title title='Manage Cars' subtitle='View all lister cars,
         updatils, or remove them from the booking platform.'/>
-        {/*  */}
+        {/* Table */}
         <div className='max-w-3xl w-full rounded-md overflow-hidden 
         border border-borderColor mt-6'>
             <table className='w-full border-collapse text-left text-sm text-gray-600'>

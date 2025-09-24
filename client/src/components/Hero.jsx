@@ -17,7 +17,7 @@ const Hero = () => {
                         <select required value={pickupLocation} onChange={(e) => setPickupLocation(e.target.value)}>
                             <option value="">Pickup Location</option>
                             {cityList.map((city, index) => (
-                                <option key={index + "cityHome"} value={city}>{city}</option>
+                                <option key={index + "cityHome"} className='outline-none' value={city}>{city}</option>
                             ))}
                         </select>
                         <p className='px-1 text-sm text-gray-500'>
