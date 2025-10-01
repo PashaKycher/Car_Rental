@@ -19,6 +19,7 @@ const App = () => {
 
   return (
     <>
+    {/* started to combine the client and server parts */}
       {showLogin && <Login setShowLogin={setShowLogin} />}
 
       {!isOwnerPath && <NavBar setShowLogin={setShowLogin} />}

@@ -6,6 +6,8 @@ import userRouter from './routes/userRoutes.js'
 import ownerRouter from './routes/ownerRoutes.js'
 import bookingRouter from './routes/bookingRouter.js'
 
+// started to combine the client and server parts
+
 const app = express()
 
 await connectDB()
