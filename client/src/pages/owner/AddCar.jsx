@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Title from '../../components/owner/Title';
-import { assets } from '../../assets/assets';
+import { assets, cityList } from '../../assets/assets';
 
 const AddCar = () => {
     const currensy = import.meta.env.VITE_CURRENCY;
@@ -119,12 +119,17 @@ const AddCar = () => {
                     </div>
                 </div>
                 {/* location */}
-                <div className='flex flex-col w-full'>
-                    <label htmlFor="location">Location</label>
-                    <input type="text" id='location' placeholder='e.g. New York, USA' required
-                        value={car.location} onChange={(e) => setCar({ ...car, location: e.target.value })}
-                        className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' />
-                </div>
+                    <div className='flex flex-col w-full'>
+                        <label htmlFor="location">Location</label>
+                        <select required id='location' value={car.location} 
+                        onChange={(e) => setCar({ ...car, location: e.target.value })}
+                        className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'>
+                            <option value="">e.g. New York</option>
+                            {cityList.map((city, index) => (
+                                <option key={index + "cityAdd"} className='outline-none' value={city}>{city}</option>
+                            ))}
+                        </select>
+                    </div>
                 {/* description */}
                 <div className='flex flex-col w-full'>
                     <label htmlFor="description">Description</label>

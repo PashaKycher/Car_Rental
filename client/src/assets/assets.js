@@ -41,7 +41,14 @@ import car_image2 from "./car_image2.png"
 import car_image3 from "./car_image3.png"
 import car_image4 from "./car_image4.png"
 
-export const cityList = ['New York', 'Los Angeles', 'Houston', 'Chicago']
+export const cityList = [
+    'New York', 'Los Angeles', 'Houston', 'Chicago', 'Washington', 'Miami',
+    'Dallas', 'Boston', 'Philadelphia', 'San Francisco', 'San Diego',
+    'San Jose', 'San Antonio', 'Austin', 'Jacksonville', 'Fort Lauderdale',
+    'Columbus', 'Charlotte', 'Indianapolis', 'Seattle', 'Denver', 'Boston',
+    'Detroit', 'El Paso', 'Memphis', 'Nashville', 'Baltimore', 'Oklahoma City',
+    'Las Vegas', 'Portland', 'Kansas City', 'Louisville', 'Milwaukee',
+]
 
 export const assets = {
     logo,
@@ -102,11 +109,11 @@ export const ownerMenuLinks = [
 ]
 
 export const dummyUserData = {
-  "_id": "6847f7cab3d8daecdb517095",
-  "name": "Pavel Developer",
-  "email": "admin@example.com",
-  "role": "owner",
-  "image": user_profile,
+    "_id": "6847f7cab3d8daecdb517095",
+    "name": "Pavel Developer",
+    "email": "admin@example.com",
+    "role": "owner",
+    "image": user_profile,
 }
 
 export const dummyCarData = [
