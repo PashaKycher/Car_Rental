@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { assets, dummyDashboardData } from '../../assets/assets';
 import Title from '../../components/owner/Title';
+import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
-    const currecy = import.meta.env.VITE_CURRENCY
+    const {axios, isOwner, currency} = useAppContext()
+
     const [data, setData] = useState({
         totalCars: 0,
         totalBookings: 0,
-        pendingBookings: 0,
-        completedBookings: 0,
+        totalPendingBookings: 0,
+        totalCompliedBookings: 0,
         recentBookings: [],
         monthlyRevenue: 0
     });
@@ -16,13 +19,29 @@ const Dashboard = () => {
     const dashbordCards = [
         { title: "Total Cars", value: data.totalCars, icon: assets.carIconColored },
         { title: "Total Bookings", value: data.totalBookings, icon: assets.listIconColored },
-        { title: "Pending", value: data.pendingBookings, icon: assets.cautionIconColored },
-        { title: "Confirmed", value: data.completedBookings, icon: assets.listIconColored },
+        { title: "Pending", value: data.totalPendingBookings, icon: assets.cautionIconColored },
+        { title: "Confirmed", value: data.totalCompliedBookings, icon: assets.listIconColored },
     ]
 
+    const fetchDashboardData = async () => {
+        try {
+            const { data } = await axios.get('/api/owner/dashbord');
+            if (data.success) {
+                setData(data.dashbordData);
+                console.log(data.dashbordData);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
     useEffect(() => {
-        setData(dummyDashboardData)
-    }, [])
+        if(isOwner) {
+            fetchDashboardData();
+        }
+    }, [isOwner])
 
     return (
         <div className='px-4 pt-10 md:px-10 flex-1'>
@@ -65,7 +84,7 @@ const Dashboard = () => {
                             </div>
 
                             <div className='flex items-center gap-2'>
-                                <p className='text-sm text-gray-500 font-semibold'>{currecy}{booking.price}</p>
+                                <p className='text-sm text-gray-500 font-semibold'>{currency}{booking.price}</p>
                                 <p className={`px-3 py-0.5 border border-borderColor rounded-full text-sm
                                 ${booking.status === "confirmed" 
                                 ? "bg-green-400/15 text-green-600" : "bg-red-400/15 text-red-600"}`}>{booking.status}</p>
@@ -77,7 +96,7 @@ const Dashboard = () => {
                 <div className='p-4 md:p-6 mb-6 border border-borderColor rounded-md w-full md:max-w-xs'>
                     <h1 className='text-lg font-medium'>Monthly Revenue</h1>
                     <p className='text-gray-500'>Revenue for current month</p>
-                    <p className='text-3xl mt-6 font-semibold text-primary'>{currecy}{data.monthlyRevenue}</p>
+                    <p className='text-3xl mt-6 font-semibold text-primary'>{currency}{data.monthlyRevenue}</p>
                 </div>
             </div>
         </div>

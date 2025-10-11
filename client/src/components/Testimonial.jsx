@@ -1,5 +1,6 @@
 import React from 'react'
 import Title from './Title';
+import { motion } from 'motion/react'
 
 const Testimonial = () => {
     // Dummy data
@@ -13,7 +14,7 @@ const Testimonial = () => {
         <svg className="w-4 h-4 text-primary" fill={filled ? "currentColor" : "none"}
             stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" >
             <path strokeLinecap="round" strokeLinejoin="round"
-            d="M12 17.25l-6.16 3.73 1.64-7.03L2.5 9.77l7.19-.61L12 2.5l2.31 6.66 7.19.61-5 4.18 1.64 7.03z" />
+                d="M12 17.25l-6.16 3.73 1.64-7.03L2.5 9.77l7.19-.61L12 2.5l2.31 6.66 7.19.61-5 4.18 1.64 7.03z" />
         </svg>
     );
 
@@ -25,8 +26,12 @@ const Testimonial = () => {
             {/* testimonials */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-20 mb-10">
                 {testimonials.map((testimonial, index) => (
-                    <div key={index + "testimonial"} 
-                    className="bg-white p-6 rounded-xl shadow-lg max-w-xs hover:-translate-y-1 transition-all duration-500">
+                    <motion.div key={index + "testimonial"}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        className="bg-white p-6 rounded-xl shadow-lg max-w-xs hover:-translate-y-1 transition-all duration-500">
                         <div className="flex items-center gap-3">
                             <img className="w-12 h-12 rounded-full" src={testimonial.image} alt={testimonial.name} />
                             <div>
@@ -40,7 +45,7 @@ const Testimonial = () => {
                             ))}
                         </div>
                         <p className="text-gray-500 max-w-90 mt-4">"{testimonial.testimonial}"</p>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </div>

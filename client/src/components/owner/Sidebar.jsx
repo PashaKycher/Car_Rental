@@ -1,15 +1,29 @@
 import React, { useState } from 'react'
-import { assets, dummyUserData, ownerMenuLinks } from '../../assets/assets'
+import { assets, ownerMenuLinks } from '../../assets/assets'
 import { NavLink, useLocation } from 'react-router-dom'
+import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const Sidebar = () => {
-    const user = dummyUserData
+    const { user, axios, fetchUser } = useAppContext()
     const location = useLocation()
     const [image, setImage] = useState('')
 
     const updeteImage = async () => {
-        user.image = URL.createObjectURL(image)
-        setImage('')
+        try {
+            const formData = new FormData()
+            formData.append('image', image)
+            const { data } = await axios.post('/api/owner/update-image', formData)
+            if (data.success) {
+                fetchUser()
+                toast.success(data.message)
+                setImage('')
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     return (
@@ -18,7 +32,7 @@ const Sidebar = () => {
             {/* user image */}
             <div className='group relative'>
                 <label htmlFor="image">
-                    <img alt="" className='max-md:mt-3 mb-1 md:w-20 md:h-20 rounded-full object-cover cursor-pointer'
+                    <img alt="" className='mx-auto w-10 h-10 max-md:mt-3 mb-1 md:w-20 md:h-20 rounded-full object-cover cursor-pointer'
                         src={image ? URL.createObjectURL(image) : user?.image
                             || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} />
 
@@ -33,8 +47,9 @@ const Sidebar = () => {
             </div>
             {/* Save button */}
             {image && (
-                <button className='absolute top-0 right-0 flex p-2 gap-1 bg-primary/10 text-primary cursor-pointer max-md:w-full'>
-                    Save <img src={assets.check_icon} alt="" width={13} onClick={updeteImage} className='max-md:hidden'/>
+                <button onClick={updeteImage}
+                    className='absolute top-0 right-0 flex p-2 gap-1 bg-primary/10 text-primary cursor-pointer max-md:w-full'>
+                    Save <img src={assets.check_icon} alt="" width={13} className='max-md:hidden' />
                 </button>
             )}
             {/* user name */}

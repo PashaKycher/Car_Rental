@@ -2,13 +2,38 @@ import React, { useEffect, useState } from 'react'
 import { dummyMyBookingsData } from '../../assets/assets'
 import { Link } from 'react-router-dom'
 import Title from '../../components/owner/Title'
+import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const ManageBookings = () => {
-    const currecy = import.meta.env.VITE_CURRENCY
+    const { axios, currecy } = useAppContext()
     const [bookings, setBookings] = useState([])
 
     const fetchOwnerBoookings = async () => {
-        setBookings(dummyMyBookingsData)
+        try {
+            const { data } = await axios.get('/api/bookings/owner')
+            if (data.success) {
+                setBookings(data.bookings)
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
+    const changeBookingStatus = async (bookingId, status) => {
+        try {
+            const { data } = await axios.post('/api/bookings/change-status', { bookingId, status })
+            if (data.success) {
+                fetchOwnerBoookings()
+                toast.success(data.message)
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     useEffect(() => {
@@ -56,14 +81,15 @@ const ManageBookings = () => {
                                 <td className='p-3'>
                                     {bookings.status === 'pending' ? (
                                         <select className='px-2 py-1.5 mt-1 text-gray-500 border border-borderColor
-                                        rounded-md outline-none max-sm:text-xs max-[330px]:max-w-[82px]' value={bookings.status}>
+                                        rounded-md outline-none max-sm:text-xs max-[330px]:max-w-[82px]' value={bookings.status}
+                                        onChange={e => changeBookingStatus(bookings._id, e.target.value)}>
                                             <option value="pending">Pending</option>
                                             <option value="cancelled">Cancelled</option>
                                             <option value="confirmed">Confirmed</option>
                                         </select>
                                     ) : (<span className={`px-3 py-1 rounded-full font-semibold max-[330px]:text-xs
                                     ${bookings.status === 'confirmed' ? 'bg-green-100 text-green-600'
-                                    : 'bg-red-100 text-red-600'} text-sm`}>{bookings.status}</span>)}
+                                            : 'bg-red-100 text-red-600'} text-sm`}>{bookings.status}</span>)}
                                 </td>
                             </tr>
                         ))}

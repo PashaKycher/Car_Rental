@@ -99,7 +99,7 @@ export const listOwnerCarsController = async (req, res) => {
 export const toggleCarAvailabilityController = async (req, res) => {
     try {
         const { _id } = req.user
-        const { carId } = req.params
+        const { carId } = req.body
 
         const car = await Car.findById(carId)
 
@@ -134,7 +134,7 @@ export const toggleCarAvailabilityController = async (req, res) => {
 export const deleteCarController = async (req, res) => {
     try {
         const { _id } = req.user
-        const { carId } = req.params
+        const { carId } = req.body
 
         const car = await Car.findById(carId)
 

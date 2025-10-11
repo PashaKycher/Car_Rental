@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import Title from '../../components/owner/Title';
 import { assets, cityList } from '../../assets/assets';
+import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 
 const AddCar = () => {
-    const currensy = import.meta.env.VITE_CURRENCY;
+    const { axios, currensy } = useAppContext()
+
     const [image, setImage] = useState('');
+    const [isLoding, setIsLoading] = useState(false);
+
     const [car, setCar] = useState({
         brand: '',
         model: '',
@@ -20,6 +25,33 @@ const AddCar = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        if (isLoding) return null;
+
+        setIsLoading(true)
+
+        try {
+            const formData = new FormData()
+            formData.append('image', image)
+            formData.append('carData', JSON.stringify(car))
+
+            const { data } = await axios.post('/api/owner/add-car', formData)
+
+            if (data.success) {
+                toast.success(data.message)
+
+                setImage('')
+                setCar({
+                    brand: '', model: '', category: '', year: 0, pricePerDay: 0, transmission: '',
+                    fuel_type: '', seating_capacity: 0, description: '', location: '',
+                })
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -119,17 +151,17 @@ const AddCar = () => {
                     </div>
                 </div>
                 {/* location */}
-                    <div className='flex flex-col w-full'>
-                        <label htmlFor="location">Location</label>
-                        <select required id='location' value={car.location} 
+                <div className='flex flex-col w-full'>
+                    <label htmlFor="location">Location</label>
+                    <select required id='location' value={car.location}
                         onChange={(e) => setCar({ ...car, location: e.target.value })}
                         className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'>
-                            <option value="">e.g. New York</option>
-                            {cityList.map((city, index) => (
-                                <option key={index + "cityAdd"} className='outline-none' value={city}>{city}</option>
-                            ))}
-                        </select>
-                    </div>
+                        <option value="">e.g. New York</option>
+                        {cityList.map((city, index) => (
+                            <option key={index + "cityAdd"} className='outline-none' value={city}>{city}</option>
+                        ))}
+                    </select>
+                </div>
                 {/* description */}
                 <div className='flex flex-col w-full'>
                     <label htmlFor="description">Description</label>
@@ -140,7 +172,7 @@ const AddCar = () => {
                 {/* button */}
                 <button type='submit' className='w-max mt-4 px-4 py-2.5 bg-primary text-white rounded-md
                 hover:bg-primery-dull transition-all font-semibold cursor-pointer flex itams-center gap-2'>
-                    <img src={assets.tick_icon} alt="" /> List Your Car
+                    <img src={assets.tick_icon} alt="" /> {isLoding ? 'Listing...' : 'List Your Car'}
                 </button>
             </form>
         </div>

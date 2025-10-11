@@ -1,17 +1,34 @@
 import React from 'react'
 import { assets } from '../assets/assets';
+import { motion } from 'motion/react'
 
 const Footer = () => {
     return (
-        <div className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32 mt-32'>
-            <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32 mt-32'>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 {/* logo and icons */}
                 <div className='max-w-80'>
-                    <img src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9' />
-                    <p className='text-sm'>
+                    <motion.img
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9' />
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className='text-sm'>
                         Primium car rentar service with a wide selection of luxury and
                         everyday vehicles for all your driving needs.
-                    </p>
+                    </motion.p>
                     <div className='flex items-center gap-3 mt-4'>
                         {/* Instagram */}
                         <a href="#" className='cursor-pointer hover:text-primary'>
@@ -22,25 +39,28 @@ const Footer = () => {
                         {/* Facebook */}
                         <a href="#" className='cursor-pointer hover:text-primary'>
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13.5 9H15V6.5h-1.5c-1.933 0-3.5 1.567-3.5 3.5v1.5H8v3h2.5V21h3v-7.5H16l.5-3h-3z" />
-                        </svg>
+                                <path d="M13.5 9H15V6.5h-1.5c-1.933 0-3.5 1.567-3.5 3.5v1.5H8v3h2.5V21h3v-7.5H16l.5-3h-3z" />
+                            </svg>
                         </a>
                         {/* Twitter */}
                         <a href="#" className='cursor-pointer hover:text-primary'>
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M22 5.92a8.2 8.2 0 01-2.36.65A4.1 4.1 0 0021.4 4a8.27 8.27 0 01-2.6 1A4.14 4.14 0 0016 4a4.15 4.15 0 00-4.15 4.15c0 .32.04.64.1.94a11.75 11.75 0 01-8.52-4.32 4.14 4.14 0 001.29 5.54A4.1 4.1 0 013 10v.05a4.15 4.15 0 003.33 4.07 4.12 4.12 0 01-1.87.07 4.16 4.16 0 003.88 2.89A8.33 8.33 0 012 19.56a11.72 11.72 0 006.29 1.84c7.55 0 11.68-6.25 11.68-11.67 0-.18 0-.35-.01-.53A8.18 8.18 0 0022 5.92z" />
-                        </svg>
+                                <path d="M22 5.92a8.2 8.2 0 01-2.36.65A4.1 4.1 0 0021.4 4a8.27 8.27 0 01-2.6 1A4.14 4.14 0 0016 4a4.15 4.15 0 00-4.15 4.15c0 .32.04.64.1.94a11.75 11.75 0 01-8.52-4.32 4.14 4.14 0 001.29 5.54A4.1 4.1 0 013 10v.05a4.15 4.15 0 003.33 4.07 4.12 4.12 0 01-1.87.07 4.16 4.16 0 003.88 2.89A8.33 8.33 0 012 19.56a11.72 11.72 0 006.29 1.84c7.55 0 11.68-6.25 11.68-11.67 0-.18 0-.35-.01-.53A8.18 8.18 0 0022 5.92z" />
+                            </svg>
                         </a>
                         {/* LinkedIn */}
                         <a href="#" className='cursor-pointer hover:text-primary'>
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98h.02c1.1 0 1.98-.88 1.98-1.98C6.98 4.38 6.1 3.5 4.98 3.5zM3 8.75h3.96V21H3V8.75zm6.25 0h3.8v1.68h.05c.53-.98 1.82-2.02 3.75-2.02 4.01 0 4.75 2.64 4.75 6.07V21H17v-5.63c0-1.34-.03-3.07-1.88-3.07-1.88 0-2.17 1.47-2.17 2.98V21H9.25V8.75z" />
-                        </svg>
+                                <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98h.02c1.1 0 1.98-.88 1.98-1.98C6.98 4.38 6.1 3.5 4.98 3.5zM3 8.75h3.96V21H3V8.75zm6.25 0h3.8v1.68h.05c.53-.98 1.82-2.02 3.75-2.02 4.01 0 4.75 2.64 4.75 6.07V21H17v-5.63c0-1.34-.03-3.07-1.88-3.07-1.88 0-2.17 1.47-2.17 2.98V21H9.25V8.75z" />
+                            </svg>
                         </a>
                     </div>
                 </div>
                 {/* COMPANY */}
-                <div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}>
                     <p className='text-lg text-gray-800'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">About</a></li>
@@ -49,9 +69,12 @@ const Footer = () => {
                         <li><a href="#">Blog</a></li>
                         <li><a href="#">Partners</a></li>
                     </ul>
-                </div>
+                </motion.div>
                 {/* SUPPORT */}
-                <div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}>
                     <p className='text-lg text-gray-800'>SUPPORT</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">Help Center</a></li>
@@ -60,9 +83,12 @@ const Footer = () => {
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">Accessibility</a></li>
                     </ul>
-                </div>
+                </motion.div>
                 {/* STAY UPDATED */}
-                <div className='hidden xl:block max-w-80'>
+                <motion.div className='hidden xl:block max-w-80'
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}>
                     <p className='text-lg text-gray-800'>STAY UPDATED</p>
                     <p className='mt-3 text-sm'>
                         Subscribe to our newsletter for inspiration and special offers.
@@ -74,23 +100,33 @@ const Footer = () => {
                             <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 12H5m14 0-4 4m4-4-4-4" /></svg>
                         </button>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
             {/* Line */}
             <hr className='border-gray-300 mt-8' />
             {/* Contact My */}
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
                 <p>© {new Date().getFullYear()} <a href="https://prebuiltui.com">PrebuiltUI</a>. All rights reserved.</p>
-                <ul className='flex items-center gap-4'>
-                    <li className='text-primary hover:text-primery-dull text-medium font-semibold'>
-                        <a href="https://www.linkedin.com/in/pavlo-kucheriavykh-1b8053329">My LinkedIn</a>
-                    </li>
-                    <li className='text-primary hover:text-primery-dull text-medium font-semibold'>
-                        <a href="https://github.com/PashaKycher">My GitHab</a>
-                    </li>
-                </ul>
+                <motion.ul
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className='flex items-center gap-4'>
+                    <motion.li whileHover={{ scale: 1.05 }}
+                        className='text-primary hover:text-primery-dull text-medium font-semibold'>
+                        <a href="https://www.linkedin.com/in/pavlo-kucheriavykh-1b8053329">
+                            My LinkedIn
+                        </a>
+                    </motion.li>
+                    <motion.li whileHover={{ scale: 1.05 }}
+                        className='text-primary hover:text-primery-dull text-medium font-semibold'>
+                        <a href="https://github.com/PashaKycher">
+                            My GitHab
+                        </a>
+                    </motion.li>
+                </motion.ul>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

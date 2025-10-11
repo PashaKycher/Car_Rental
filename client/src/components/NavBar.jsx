@@ -3,6 +3,7 @@ import { assets, menuLinks } from '../assets/assets'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
+import { motion } from 'motion/react'
 
 const NavBar = () => {
     const { setShowLogin, user, logoutUser, isOwner, setIsOwner, axios } = useAppContext()
@@ -25,12 +26,16 @@ const NavBar = () => {
 }
 
 return (
-    <div className={`flex items-center justify-between px-6 md:px-12 lg:px-14 xl:px-32 py-4
-        text-gray-600 border-b border-borderColor relative transition-all
+    <motion.div 
+    initial={{ y:-20, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    className={`flex items-center justify-between px-6 md:px-12 lg:px-14 xl:px-32 py-4
+    text-gray-600 border-b border-borderColor relative transition-all
         ${location.pathname === "/" && "bg-light"}`}>
         {/* logo */}
         <Link to="/">
-            <img src={assets.logo} alt="logo" className='h-8' />
+            <motion.img whileHover={{scale:1.05}} src={assets.logo} alt="logo" className='h-8' />
         </Link>
         {/* navigation */}
         <div className={`max-sm:fixed max-sm:h-screen max-sm:w-full max-sm:top-16 max-sm:border-t gap-4
@@ -66,7 +71,7 @@ return (
         <button className='sm:hidden curser-pointer' onClick={() => setOpen(!open)} aria-label='Menu'>
             <img src={open ? assets.close_icon : assets.menu_icon} alt="mobileMenu" />
         </button>
-    </div>
+    </motion.div>
 )
 }
 

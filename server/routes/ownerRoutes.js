@@ -13,7 +13,7 @@ ownerRouter.post('/add-car', upload.single('image'), protect, addNewCarControlle
 ownerRouter.get('/cars', protect, listOwnerCarsController)
 ownerRouter.post('/toggle-car', protect, toggleCarAvailabilityController)
 ownerRouter.post('/delete-car', protect, deleteCarController)
-ownerRouter.get('/deshbord', protect, deshbordDataController)
+ownerRouter.get('/dashbord', protect, deshbordDataController)
 ownerRouter.post('/update-image', upload.single('image'), protect, updateUserImageController)
 
 export default ownerRouter
