@@ -10,6 +10,6 @@ const userRouter = express.Router()
 userRouter.post('/register', registerUserController)
 userRouter.post('/login', loginUserController)
 userRouter.get('/data', protect, getUserDataController)
-userRouter.get('/cars', protect, getAllCarsController)
+userRouter.get('/cars', getAllCarsController)
 
 export default userRouter
